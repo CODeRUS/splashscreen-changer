@@ -29,7 +29,7 @@ Page {
             }
 
             Label {
-                text: "Placeholder for future application icon artist name."
+                text: "Icon made by Ancelad"
                 font.pixelSize: Theme.fontSizeMedium
                 x: Theme.paddingLarge
                 width: parent.width - Theme.paddingLarge * 2

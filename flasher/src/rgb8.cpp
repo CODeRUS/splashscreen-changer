@@ -3,22 +3,27 @@
 #include <QDebug>
 
 #include <QImage>
+#include <QBuffer>
 
-QString RGB8::convertImage(const QString &filename)
+QByteArray RGB8::convertImage(const QString &filename, const char *format)
 {
     QImage picture;
-    picture.load(filename);
+    picture.load(filename, format);
     if (picture.width() != 720 || picture.height() != 1280) {
         qDebug() << "Wrong image size" << picture.width() << picture.height();
-        return QString();
+        return QByteArray();
     }
 
-    picture = picture.convertToFormat(QImage::Format_RGB888);
-    if (picture.save("/tmp/splashscreen-temp.ppm", "PPM")) {
-        return "/tmp/splashscreen-temp.ppm";
+    picture = picture.convertToFormat(QImage::Format_Indexed8);
+    picture = picture.rgbSwapped();
+    QByteArray ba;
+    QBuffer buffer(&ba);
+    buffer.open(QIODevice::WriteOnly);
+    if (picture.save(&buffer, "PPM")) {
+        return ba;
     } else {
         qDebug() << "Error converting to PPM";
-        return QString();
+        return QByteArray();
     }
 }
 

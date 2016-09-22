@@ -6,7 +6,7 @@ Name:       splashscreen-changer
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 
 Summary:    Splashscreen changer
-Version:    0.1.0
+Version:    0.2.0
 Release:    1
 Group:      Qt/Qt
 License:    LICENSE
@@ -39,10 +39,6 @@ rm -rf %{buildroot}
 
 %qmake5_install
 
-desktop-file-install --delete-original       \
-  --dir %{buildroot}%{_datadir}/applications             \
-   %{buildroot}%{_datadir}/applications/*.desktop
-
 %pre
 if /sbin/pidof splashscreen-flasher > /dev/null; then
 killall splashscreen-flasher || true
@@ -56,8 +52,8 @@ fi
 %files
 %attr(4755, root, root) %{_bindir}/splashscreen-flasher
 %defattr(-,root,root,-)
-%{_bindir}/splashscreen-changer
-%{_datadir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/splashscreen-changer/data/*.header
+%{_datadir}/splashscreen-changer/icons/*.png
+%{_datadir}/splashscreen-changer/qml/*.qml
+%{_datadir}/jolla-settings/entries/*.json
 %{_datadir}/dbus-1/services/*.service

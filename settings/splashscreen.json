@@ -1,0 +1,15 @@
+{
+    "translation_catalog": "settings-system",
+    "entries": [
+        {
+            "path": "system_settings/look_and_feel/splashscreenchanger",
+            "title": "Splashscreen",
+            "type": "page",
+            "icon": "/usr/share/splashscreen-changer/icons/icon-m-splashscreenchanger.png",
+            "order": 1000,
+            "params": {
+                "source": "/usr/share/splashscreen-changer/qml/FirstPage.qml"
+            }
+        }
+    ]
+}

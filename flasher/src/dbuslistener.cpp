@@ -34,7 +34,7 @@ void DBusListener::flashOriginal()
 
 void DBusListener::flashPicture(const QString &fileName)
 {
-    QString ppm = RGB8::convertImage(fileName);
+    QByteArray ppm = RGB8::convertImage(fileName);
     if (!ppm.isEmpty()) {
         QFile imgheader("/usr/share/splashscreen-changer/data/img.header");
         QByteArray imgHeader;
@@ -43,31 +43,26 @@ void DBusListener::flashPicture(const QString &fileName)
             imgheader.close();
         }
 
-        QFile file("/tmp/splashscreen-temp.ppm");
-        if (file.open(QFile::ReadOnly)) {
-            if (file.size() != 2764816) {
-               errorMessage(QString("converted image size doesnt match 2764816 (%1)").arg(file.size()));
-            }
-            file.seek(16);
-
+        if (ppm.size() != 2764816) {
+            errorMessage(QString("converted image size doesnt match 2764816 (%1)").arg(ppm.size()));
+        }
+        else {
             QByteArray image;
             image.append(imgHeader);
-            image.append(file.readAll());
+            image.append(ppm.right(2764800));
 
             if (image.size() != 2765312) {
                 errorMessage(QString("Image have wrong size %1").arg(image.size()));
             } else {
                 flashImage(image);
             }
-
-            file.close();
         }
     }
 }
 
 void DBusListener::flashImage(const QByteArray &image)
 {
-    QFile splashscreen("/dev/mmcblk0p16");
+    QFile splashscreen("/dev/disk/by-partlabel/splash");
     if (splashscreen.open(QFile::WriteOnly)) {
         qDebug() << "writing" << image.size() << "bytes";
         splashscreen.write(image);
@@ -81,7 +76,7 @@ void DBusListener::readPicture()
 {
     QByteArray img;
 
-    QFile splashscreen("/dev/mmcblk0p16");
+    QFile splashscreen("/dev/disk/by-partlabel/splash");
     if (splashscreen.open(QFile::ReadOnly)) {
         img = splashscreen.read(2765312);
         splashscreen.close();
@@ -102,25 +97,21 @@ void DBusListener::readPicture()
 
             qDebug() << "splashscreen picture read to /tmp/splashscreen-dump.ppm";
 
+            QByteArray swapped = RGB8::convertImage("/tmp/splashscreen-dump.ppm", "PPM");
+            splashscreenImage.resize(0);
+            splashscreenImage.seek(0);
+            splashscreenImage.write(swapped);
+            splashscreenImage.close();
+
             Q_EMIT pictureRead("/tmp/splashscreen-dump.ppm");
         } else {
+
+            splashscreenImage.close();
             errorMessage("Error opening ppm header");
         }
-
-        splashscreenImage.close();
     } else {
-        errorMessage("Error writingsplashscreen dump");
+        errorMessage("Error writing splashscreen dump");
     }
-
-//    QProcess flasher;
-//    flasher.start("/bin/dd", QStringList() << "ibs=512" << "count=5401" << "if=/dev/mmcblk0p16" << "of=/tmp/splash-dump.img");
-//    flasher.waitForFinished(10000);
-//    if (flasher.state() == QProcess::Running) {
-//        qDebug() << "Error reading splashscreen";
-//        return;
-//    } else {
-
-//    }
 }
 
 void DBusListener::quit()

@@ -6,7 +6,7 @@
 class RGB8
 {
 public:
-    static QString convertImage(const QString &filename);
+    static QByteArray convertImage(const QString &filename, const char* format=0);
 };
 
 #endif // RGB8_H
