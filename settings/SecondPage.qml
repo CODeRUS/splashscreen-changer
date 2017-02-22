@@ -23,6 +23,8 @@ Page {
 
         path: homePath
         active: page.status === PageStatus.Active
+        directorySort: FileModel.SortDirectoriesBeforeFiles
+        caseSensitivity: Qt.CaseInsensitive
         onError: {
             console.log("###", fileName, error)
         }

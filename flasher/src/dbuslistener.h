@@ -25,6 +25,8 @@ private:
     void flashImage(const QByteArray &image);
     void errorMessage(const QString &message);
 
+    bool gzipDecompress(QByteArray input, QByteArray &output);
+
 signals:
     Q_SCRIPTABLE void pictureRead(const QString &filename);
     Q_SCRIPTABLE void someError(const QString &errorMessage);

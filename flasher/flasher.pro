@@ -2,6 +2,8 @@ TARGET = splashscreen-flasher
 target.path = /usr/bin
 
 QT += dbus
+CONFIG += link_pkgconfig
+PKGCONFIG += zlib
 
 SOURCES += \
     src/main.cpp \

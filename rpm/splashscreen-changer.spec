@@ -6,7 +6,7 @@ Name:       splashscreen-changer
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 
 Summary:    Splashscreen changer
-Version:    0.2.0
+Version:    0.3.0
 Release:    1
 Group:      Qt/Qt
 License:    LICENSE
@@ -19,6 +19,7 @@ BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(zlib)
 BuildRequires:  desktop-file-utils
 
 %description
