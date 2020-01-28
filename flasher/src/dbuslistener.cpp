@@ -127,6 +127,8 @@ DBusListener::DBusListener(QObject *parent) :
 
     if (m_model == QLatin1String("l500d")) {
         m_splashscreen = new L500DSplashscreen();
+    } else if (m_model == QLatin1String("p4903")) {
+        m_splashscreen = new L500DSplashscreen();
     } else if (m_model == QLatin1String("t5")) {
         m_splashscreen = new T5Splashscreen();
     }

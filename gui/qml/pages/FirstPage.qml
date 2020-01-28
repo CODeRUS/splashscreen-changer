@@ -28,6 +28,8 @@ Page {
 
         var fn = filename.toString().slice(7)
         dbus.call("flashPicture", [fn])
+
+        timer.start()
     }
 
     Timer {
