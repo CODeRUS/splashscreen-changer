@@ -22,7 +22,9 @@ Dialog {
         height: Screen.height
         cache: false
         fillMode: Image.PreserveAspectFit
-        property bool okay: status == Image.Ready && sourceSize.width == 720 && sourceSize.height == 1280
+        property bool okay: status == Image.Ready
+                            && sourceSize.width === Screen.width
+                            & sourceSize.height === Screen.height
 
         BusyIndicator {
             anchors.centerIn: parent

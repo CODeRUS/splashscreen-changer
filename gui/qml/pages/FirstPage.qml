@@ -83,7 +83,7 @@ Page {
 
         Image {
             id: img
-            anchors.centerIn: parent
+            anchors.top: parent.top
             width: Screen.width
             height: Screen.height
             sourceSize.width: width

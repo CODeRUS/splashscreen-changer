@@ -1,4 +1,5 @@
 #include "L500DSplashscreen.hpp"
+#include "T5Splashscreen.hpp"
 #include "dbuslistener.h"
 
 #include <QDebug>
@@ -122,8 +123,12 @@ DBusListener::DBusListener(QObject *parent) :
     QDBusReply<QString> re = QDBusConnection::systemBus().call(ssu);
     m_model = re.value().toLower();
 
+    qDebug() << Q_FUNC_INFO << m_model;
+
     if (m_model == QLatin1String("l500d")) {
         m_splashscreen = new L500DSplashscreen();
+    } else if (m_model == QLatin1String("t5")) {
+        m_splashscreen = new T5Splashscreen();
     }
 }
 
