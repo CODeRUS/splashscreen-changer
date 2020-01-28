@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = flasher settings
+SUBDIRS = flasher gui
 
 OTHER_FILES += \
     rpm/splashscreen-changer.spec

@@ -2,9 +2,9 @@
 #define DBUSLISTENERFLASHLIGHT_H
 
 #include <QObject>
-
 #include <QtDBus>
 
+class ISplashscreen;
 class DBusListener : public QObject
 {
     Q_OBJECT
@@ -25,7 +25,8 @@ private:
     void flashImage(const QByteArray &image);
     void errorMessage(const QString &message);
 
-    bool gzipDecompress(QByteArray input, QByteArray &output);
+    QString m_model;
+    ISplashscreen *m_splashscreen = nullptr;
 
 signals:
     Q_SCRIPTABLE void pictureRead(const QString &filename);
