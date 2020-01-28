@@ -8,6 +8,7 @@ PKGCONFIG += zlib
 SOURCES += \
     src/L500DSplashscreen.cpp \
     src/T5Splashscreen.cpp \
+    src/TBJSplashscreen.cpp \
     src/main.cpp \
     src/dbuslistener.cpp
 
@@ -15,6 +16,7 @@ HEADERS += \
     src/ISplashscreen.hpp \
     src/L500DSplashscreen.hpp \
     src/T5Splashscreen.hpp \
+    src/TBJSplashscreen.hpp \
     src/dbuslistener.h
 
 headers.files += \

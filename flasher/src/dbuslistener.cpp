@@ -1,5 +1,6 @@
 #include "L500DSplashscreen.hpp"
 #include "T5Splashscreen.hpp"
+#include "TBJSplashscreen.hpp"
 #include "dbuslistener.h"
 
 #include <QDebug>
@@ -131,6 +132,8 @@ DBusListener::DBusListener(QObject *parent) :
         m_splashscreen = new L500DSplashscreen();
     } else if (m_model == QLatin1String("t5")) {
         m_splashscreen = new T5Splashscreen();
+    } else if (m_model == QLatin1String("tbj")) {
+//        m_splashscreen = new TBJSplashscreen(); // disabled due to secureboot
     }
 }
 
